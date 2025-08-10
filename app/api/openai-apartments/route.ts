@@ -5,7 +5,7 @@ import { UserRequirements } from '../../types';
 
 // 优化的内存缓存
 const cache = new Map();
-const CACHE_DURATION = 10 * 60 * 1000; // 10分钟缓存，减少重复请求
+const CACHE_DURATION = 2 * 60 * 1000; // 减少到2分钟缓存，增加结果多样性
 const QA_CACHE_DURATION = 30 * 60 * 1000; // 问答功能30分钟缓存
 
 // 简单的位置提取函数
@@ -57,11 +57,13 @@ export async function POST(request: NextRequest) {
 
     // 根据请求类型处理
     if (query && searchType) {
-      // 检查缓存
-      const cacheKey = `${query}-${searchType}-${model || 'default'}`;
+      // 检查缓存 - 为智能搜索添加随机性，避免总是返回相同结果
+      const cacheKey = searchType === 'comprehensive_search' 
+        ? `${query}-${searchType}-${model || 'default'}-${Math.floor(Date.now() / (2 * 60 * 1000))}` // 每2分钟生成新的缓存键
+        : `${query}-${searchType}-${model || 'default'}`;
       const cachedResult = cache.get(cacheKey);
       
-      if (cachedResult && Date.now() - cachedResult.timestamp < CACHE_DURATION && !forceRealData) {
+      if (cachedResult && Date.now() - cachedResult.timestamp < CACHE_DURATION && !forceRealData && searchType !== 'comprehensive_search') {
         console.log('📦 使用缓存结果');
         return NextResponse.json(cachedResult.data);
       }

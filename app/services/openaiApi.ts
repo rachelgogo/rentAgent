@@ -373,7 +373,7 @@ ${context.requirements ? `
 [
   {
     "id": "apt_001",
-    "title": "公寓名称（使用真实的公寓大楼名称，如：The Harrison, NEMA, 100 Van Ness, The Civic, The Infinity等）",
+    "title": "公寓名称（使用真实的公寓大楼名称，如：The Harrison, NEMA, 100 Van Ness, The Civic, The Infinity, Avalon Mission Bay, The Beacon等）",
     "location": "具体地址（使用真实的街道地址，如：123 Main St, San Francisco, CA 94102）",
     "price": 租金价格（数字）,
     "bedrooms": 卧室数量（数字）,
@@ -393,7 +393,7 @@ ${context.requirements ? `
 ]
 
 请确保：
-1. 公寓名称使用真实的公寓大楼名称（如：The Harrison, NEMA, 100 Van Ness等）
+1. 公寓名称使用真实的公寓大楼名称（如：The Harrison, NEMA, 100 Van Ness, Avalon Mission Bay, The Beacon, The Infinity等）
 2. 地址使用真实的街道地址，确保地址格式正确且符合美国地址标准（如：123 Main St, San Francisco, CA 94102）
 3. 价格符合当地市场水平
 4. 设施和描述真实可信
@@ -405,9 +405,10 @@ ${context.requirements ? `
 10. 公寓ID从apt_001到apt_008
 11. 公寓名称必须是真实的公寓大楼名称，不要使用"XX公寓"这样的通用名称
 12. 地址必须是真实的街道地址，包含门牌号、街道名、城市和邮编
-13. 特别注意：The Carlyle公寓的正确地址应该是"2909 Nieman Blvd, San Jose, CA 95148"，不是"400 Saratoga Ave, San Jose, CA 95129"或"450 Saratoga Ave, Santa Clara, CA 95050"
-14. 所有地址都应该是在指定城市内的真实地址，不要跨城市错误
-15. 确保每个公寓的地址都是该城市内真实存在的街道地址
+13. 所有地址都应该是在指定城市内的真实地址，不要跨城市错误
+14. 确保每个公寓的地址都是该城市内真实存在的街道地址
+15. 请生成多样化的公寓，不要总是生成相同的公寓名称
+16. 每次搜索都应该生成不同的公寓组合，增加随机性和多样性
 `;
 
       const response = await this.callOpenAI(prompt);
