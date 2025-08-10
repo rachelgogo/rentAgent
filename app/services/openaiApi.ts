@@ -394,7 +394,7 @@ ${context.requirements ? `
 
 请确保：
 1. 公寓名称使用真实的公寓大楼名称（如：The Harrison, NEMA, 100 Van Ness等）
-2. 地址使用真实的街道地址（如：123 Main St, San Francisco, CA 94102）
+2. 地址使用真实的街道地址，确保地址格式正确且符合美国地址标准（如：123 Main St, San Francisco, CA 94102）
 3. 价格符合当地市场水平
 4. 设施和描述真实可信
 5. 评分合理（4.0-5.0之间）
@@ -405,6 +405,9 @@ ${context.requirements ? `
 10. 公寓ID从apt_001到apt_008
 11. 公寓名称必须是真实的公寓大楼名称，不要使用"XX公寓"这样的通用名称
 12. 地址必须是真实的街道地址，包含门牌号、街道名、城市和邮编
+13. 特别注意：The Carlyle公寓的正确地址应该是"2909 Nieman Blvd, San Jose, CA 95148"，不是"400 Saratoga Ave, San Jose, CA 95129"或"450 Saratoga Ave, Santa Clara, CA 95050"
+14. 所有地址都应该是在指定城市内的真实地址，不要跨城市错误
+15. 确保每个公寓的地址都是该城市内真实存在的街道地址
 `;
 
       const response = await this.callOpenAI(prompt);
