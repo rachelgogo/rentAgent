@@ -166,20 +166,13 @@ async function handleAISearch(
         // 获取真实的市场统计数据
         const marketData = openaiRealDataApiService['getLocationMarketData'](marketLocation);
         
-        // 生成少量公寓作为参考（可选）
-        const marketApartments = await openaiRealDataApiService.generateRealApartments(
-          marketLocation,
-          4, // 减少到4套公寓，提高速度
-          undefined,
-          forceRealData
-        );
-        
+        // 市场分析不需要公寓推荐，只提供真实的市场数据
         results = {
           type: 'market_analysis',
           location: marketLocation,
-          apartments: marketApartments,
+          apartments: [], // 不显示公寓推荐，避免假数据
           marketAnalysis: marketAnalysis,
-          total: marketApartments.length,
+          total: 0, // 不显示公寓数量
           stats: {
             averagePrice: marketData.averageRent, // 使用真实市场平均租金
             priceRange: marketData.priceRange // 使用真实市场价格区间

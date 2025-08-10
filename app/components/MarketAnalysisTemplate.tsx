@@ -180,73 +180,75 @@ export default function MarketAnalysisTemplate({ data }: MarketAnalysisTemplateP
 
 
 
-      {/* 推荐公寓 */}
-      <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-100">
-        <div className="flex items-center mb-6">
-          <div className="p-3 bg-purple-100 rounded-lg mr-4">
-            <Home className="h-6 w-6 text-purple-600" />
+      {/* 推荐公寓 - 只在有真实公寓数据时显示 */}
+      {data.apartments && data.apartments.length > 0 && (
+        <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-100">
+          <div className="flex items-center mb-6">
+            <div className="p-3 bg-purple-100 rounded-lg mr-4">
+              <Home className="h-6 w-6 text-purple-600" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">市场推荐公寓</h2>
+              <p className="text-gray-600">精选的代表性房源推荐</p>
+            </div>
           </div>
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900">市场推荐公寓</h2>
-            <p className="text-gray-600">精选的代表性房源推荐</p>
-          </div>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {data.apartments.slice(0, 6).map((apartment, index) => (
-            <div key={index} className="bg-gray-50 rounded-lg p-6 hover:bg-gray-100 transition-colors border border-gray-200">
-              <div className="flex justify-between items-start mb-3">
-                <h3 className="font-semibold text-gray-900 text-sm leading-tight">{apartment.title}</h3>
-                <span className="text-lg font-bold text-blue-600">
-                  {formatPrice(apartment.price)}
-                </span>
-              </div>
-              <div className="text-sm text-gray-600 mb-3">
-                <div className="flex items-center">
-                  <MapPin className="h-4 w-4 mr-1" />
-                  <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(apartment.location || '')}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-800 hover:underline cursor-pointer"
-                    title="在Google地图中查看"
-                  >
-                    {apartment.location}
-                  </a>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {data.apartments.slice(0, 6).map((apartment, index) => (
+              <div key={index} className="bg-gray-50 rounded-lg p-6 hover:bg-gray-100 transition-colors border border-gray-200">
+                <div className="flex justify-between items-start mb-3">
+                  <h3 className="font-semibold text-gray-900 text-sm leading-tight">{apartment.title}</h3>
+                  <span className="text-lg font-bold text-blue-600">
+                    {formatPrice(apartment.price)}
+                  </span>
+                </div>
+                <div className="text-sm text-gray-600 mb-3">
+                  <div className="flex items-center">
+                    <MapPin className="h-4 w-4 mr-1" />
+                    <a
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(apartment.location || '')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 hover:underline cursor-pointer"
+                      title="在Google地图中查看"
+                    >
+                      {apartment.location}
+                    </a>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-4 text-xs text-gray-500 mb-3">
+                  <span className="flex items-center">
+                    <Users className="h-3 w-3 mr-1" />
+                    {apartment.bedrooms} 卧
+                  </span>
+                  <span className="flex items-center">
+                    <Home className="h-3 w-3 mr-1" />
+                    {apartment.bathrooms} 卫
+                  </span>
+                  <span>{apartment.area} sqft</span>
+                </div>
+                <div className="flex flex-wrap gap-1">
+                  {apartment.petFriendly && (
+                    <span className="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
+                      宠物友好
+                    </span>
+                  )}
+                  {apartment.furnished && (
+                    <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
+                      家具齐全
+                    </span>
+                  )}
+                  {apartment.parking && (
+                    <span className="inline-block bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">
+                      停车位
+                    </span>
+                  )}
                 </div>
               </div>
-              <div className="flex items-center space-x-4 text-xs text-gray-500 mb-3">
-                <span className="flex items-center">
-                  <Users className="h-3 w-3 mr-1" />
-                  {apartment.bedrooms} 卧
-                </span>
-                <span className="flex items-center">
-                  <Home className="h-3 w-3 mr-1" />
-                  {apartment.bathrooms} 卫
-                </span>
-                <span>{apartment.area} sqft</span>
-              </div>
-              <div className="flex flex-wrap gap-1">
-                {apartment.petFriendly && (
-                  <span className="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
-                    宠物友好
-                  </span>
-                )}
-                {apartment.furnished && (
-                  <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
-                    家具齐全
-                  </span>
-                )}
-                {apartment.parking && (
-                  <span className="inline-block bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">
-                    停车位
-                  </span>
-                )}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* 市场建议 */}
       <div className="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 rounded-xl p-8 border border-blue-100">
